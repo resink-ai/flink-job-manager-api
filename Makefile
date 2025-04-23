@@ -25,12 +25,12 @@ gen: download
 		--config $(CONFIG)
 	cp -v README.md flink-job-manager-api/
 	cp -rv spec/py/* flink-job-manager-api/
-	poetry -C flink-job-manager-api/ version 1.0a$(TODAY_DATE)
-	pushd flink-job-manager-api && pytest tests && popd
+	poetry -C flink-job-manager-api/ version 1.0.1a$(TODAY_DATE)
+	pushd flink-job-manager-api && poetry run pytest tests && popd
 
 
 release: gen
-	cd $$(git rev-parse --show-toplevel)/flink-job-manager-api && pytest tests
+	cd $$(git rev-parse --show-toplevel)/flink-job-manager-api && poetry run pytest tests
 	@if [ $$? -ne 0 ]; then \
 		echo "Tests failed. Release aborted."; \
 		exit 1; \
@@ -52,5 +52,5 @@ release: gen
 release_production: gen
 	cd $$(git rev-parse --show-toplevel)
 	@echo "setting version to production version 1.0..."
-	poetry -C flink-job-manager-api/ version 1.0
+	poetry -C flink-job-manager-api/ version 1.0.1
 	$(MAKE) release
