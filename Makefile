@@ -25,11 +25,10 @@ gen: download
 		--config $(CONFIG)
 	cp -v README.md flink-job-manager-api/
 	cp -rv spec/py/* flink-job-manager-api/
-	poetry -C flink-job-manager-api/ version 1.0.2a$(TODAY_DATE)
 	poetry -C flink-job-manager-api/ run pytest tests
 
 
-release:
+release: gen
 	cd $$(git rev-parse --show-toplevel)/flink-job-manager-api && poetry run pytest tests
 	@if [ $$? -ne 0 ]; then \
 		echo "Tests failed. Release aborted."; \
@@ -48,6 +47,12 @@ release:
 	git tag "$$release_tag"; \
 	git push origin "$$release_tag"
 
+
+release_alpha:
+	cd $$(git rev-parse --show-toplevel)
+	@echo "setting version to alpha version 1.0.2a$(TODAY_DATE)..."
+	poetry -C flink-job-manager-api/ version 1.0.2a$(TODAY_DATE)
+	$(MAKE) release
 
 release_production:
 	cd $$(git rev-parse --show-toplevel)
