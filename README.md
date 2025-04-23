@@ -14,7 +14,30 @@ A client library for accessing [Flink Job Manager REST API](https://nightlies.ap
 First, create a client:
 
 ```python
+from flink_job_manager_api import Client
+from flink_job_manager_api.api.default import get_cluster_overview, get_dashboard_configuration
+from flink_job_manager_api.models import DashboardConfiguration
 
+BASE_URL = "http://localhost:8081"
+
+# Sync Client:
+with Client(BASE_URL) as client:
+   response: ClusterOverviewWithVersion = get_cluster_overview.sync(client=client)
+   print(f"Flink version: {response.flink_version}")
+   print(f"Flink commit: {response.flink_commit}")
+   print(f"Jobs cancelled: {response.jobs_cancelled}")
+   print(f"Jobs failed: {response.jobs_failed}")
+   print(f"Jobs finished: {response.jobs_finished}")
+   print(f"Jobs running: {response.jobs_running}")
+   print(f"Slots available: {response.slots_available}")
+   print(f"Slots free and blocked: {response.slots_free_and_blocked}")
+   print(f"Slots total: {response.slots_total}")
+   print(f"Taskmanagers: {response.taskmanagers}")
+   print(f"Taskmanagers blocked: {response.taskmanagers_blocked}")
+
+# Async Client:
+async with Client(BASE_URL) as client:
+   response = await get_dashboard_configuration.asyncio(client=client)
 ```
 
 ## Advanced customizations
