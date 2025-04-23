@@ -18,7 +18,6 @@ class TestAsyncCalls(unittest.IsolatedAsyncioTestCase):
             print(f"Refresh interval: {response.refresh_interval}")
             print(f"Timezone name: {response.timezone_name}")
             print(f"Timezone offset: {response.timezone_offset}")
-            
 
     async def test_cluster_overview(self):
         async with Client(BASE_URL) as client:
