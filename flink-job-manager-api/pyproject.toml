@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flink-job-manager-api"
-version = "1.0.2a20250423"
+version = "1.0.2"
 description = "A client library for accessing Flink Job Manager REST API"
 authors = ["Shijing Lu <shijing.lu@gmail.com>"]
 readme = "README.md"
