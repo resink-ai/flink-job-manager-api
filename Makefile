@@ -25,7 +25,7 @@ gen: download
 		--config $(CONFIG)
 	cp -v README.md flink-job-manager-api/
 	cp -rv spec/py/* flink-job-manager-api/
-	poetry -C flink-job-manager-api/ version 1.0a$(TODAY_DATE)
+	poetry -C flink-job-manager-api/ version 1.0.0a$(TODAY_DATE)
 	pushd flink-job-manager-api && pytest tests && popd
 
 
@@ -52,5 +52,5 @@ release: gen
 release_production: gen
 	cd $$(git rev-parse --show-toplevel)
 	@echo "setting version to production version 1.0..."
-	poetry -C flink-job-manager-api/ version 1.0
+	poetry -C flink-job-manager-api/ version 1.0.0
 	$(MAKE) release
